@@ -454,6 +454,14 @@ function PassTurn()
     {
         document.querySelector('#passTurnButton').disabled = false
     }
+    document.querySelector('#passTurnButton').addEventListener('click', (e) =>{
+        console.log('pass')
+        loadPlayersToPass = true
+        // if player clicks then we close the attack interface 
+        //and we append the players onto the passInterface 
+        // document.ATTRIBUTE_NODE
+        // selectPlayerToPassTurn
+    })
 
     document.querySelector('#passTurnButton').addEventListener('click', (e) =>{
         console.log('pass')
