@@ -1,0 +1,27 @@
+1. create the interface for the game 
+
+1. when the player hits the button
+    1. we have three button 
+        1. so phyical attack 
+        2. magic attack 
+        3. items 
+        
+1. with in this system the 
+    1. we will have a swtich system 
+    1. i need a way to figure out to switch between the charaters
+
+
+1. we got the turn stwiching system done 
+2. now we need to take the have where the its the enemy and player - done 
+3. we need to create an attack sort of class 
+    now we need to add an interface or a way to - done
+4. now when we start the battle we need the slector thing so we can decide who can get hit  
+
+5. so for the art 
+    1. hanging out system you need to make sure that the height and the width of the canvas is 1080 or more and the height is 700 or 800 tops
+    2. while in battle 1080 for the width and height is 800 tops 
+    3. start with the players apartment
+        1. then work your way up to other stuff like 
+            1. cafe 
+                1. ref: https://www.pinterest.com/pin/833658581040569043/
+            2. store 
