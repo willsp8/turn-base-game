@@ -14,7 +14,7 @@ canvas.height = 800
 canvas.fillStyle = "blue";
 
 const image = new Image()
-image.src = './assets/Sprite-0002.png'
+image.src = './assets/test_house.png'
 //image.src = './assets/Screenshot 2023-06-11 at 10.24.02 PM.png'
 
 image.onload = () => {

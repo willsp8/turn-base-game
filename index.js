@@ -20,21 +20,24 @@ let megaConfuseAttack = {name: "Mega Confuse", damage: 0, cost: 5, healSelf: 0, 
 let fireAttack2 = {name: "Fire", damage: 100, healSelf: 0, type: "fire", hitAll: false}
 let megaFireAttack2 = {name: "Mega Fire", damage: 100, healSelf: 0, type: "fire", hitAll: true}
 
-let healAttack = {name: "Heal",damage: 30, healSelf: 100, cost: 10, type: "heal", redirect: false, hitAll: false, healing: true}
-let megaHealAttack = {name: "Mega Heal", damage: 30, cost: 10, healSelf: 100, type: "heal", redirect: false, hitAll: true, healing: true}
+let healAttack = {name: "Heal",damage: 30, healSelf: 100, cost: 10, type: "heal", redirect: false, hitAll: false, healing: true, revive: false}
+let megaHealAttack = {name: "Mega Heal", damage: 30, cost: 10, healSelf: 100, type: "heal", redirect: false, hitAll: true, healing: true, revive: false}
 
-let redirectAttack = {name: "Redirect", damage: 0, cost: 10, healSelf: 100, type: "sp", redirect: true, hitAll: false}
-let megaRedirectAttack = {name: "Mega Redirect", cost: 10, damage: 0, healSelf: 100, type: "sp", redirect: true, hitAll: true}
+let redirectAttack = {name: "Redirect", damage: 0, cost: 10, healSelf: 100, type: "sp", redirect: true, hitAll: false, revive: false}
+let megaRedirectAttack = {name: "Mega Redirect", cost: 10, damage: 0, healSelf: 100, type: "sp", redirect: true, hitAll: true, revive: false}
+
+let reviveAttack = {name: "revive",damage: 30, healSelf: 100, cost: 10, type: "heal", redirect: false, hitAll: false, healing: true, revive: true}
+let megaReviveAttack = {name: "Mega revive", damage: 30, cost: 10, healSelf: 100, type: "heal", redirect: false, hitAll: true, healing: true, revive: true}
 
 
 // ------ Items --------
-let healItem = {name: "heal Item", amount: 4, cost: 10, damage: 30,  healSelf: 100, type: "sp", redirect: true, hitAll: false, forPlayer: true, cureConfusion: false, cureKnockOut: true}
-let megaHealItem = {name: "Mega Heal Item", amount: 4, cost: 10, damage: 50, healSelf: 100, type: "sp", redirect: true, hitAll: true, forPlayer: true, cureConfusion: true, cureKnockOut: false }
-let megaFireItem = {name: "Fire Heal Item", amount: 4, cost: 10, damage: 40, healSelf: 100, type: "sp", redirect: true, hitAll: true, forPlayer: false, cureConfusion: false, cureKnockOut: false}
-
-
+let healItem = {name: "heal Item", amount: 4, cost: 10, damage: 30,  healSelf: 100, type: "sp", redirect: true, hitAll: false, forPlayer: true, cureConfusion: false, cureKnockOut: true, revive: false}
+let megaHealItem = {name: "Mega Heal Item", amount: 4, cost: 10, damage: 50, healSelf: 100, type: "sp", redirect: true, hitAll: true, forPlayer: true, cureConfusion: true, cureKnockOut: false, revive: false }
+let megaFireItem = {name: "Fire Heal Item", amount: 4, cost: 10, damage: 40, healSelf: 100, type: "sp", redirect: true, hitAll: true, forPlayer: false, cureConfusion: false, cureKnockOut: false, revive: false}
+let reviveItem = {name: "Revive", amount: 4, cost: 10, damage: 40, healSelf: 100, type: "sp", redirect: true, hitAll: false, forPlayer: true, cureConfusion: false, cureKnockOut: false, revive: true}
+let megaReviveItem = {name: "mega Revive", amount: 4, cost: 10, damage: 40, healSelf: 100, type: "sp", redirect: true, hitAll: true, forPlayer: true, cureConfusion: false, cureKnockOut: false, revive: true}
 // ---- create health Classes ----
-let healthClass1 = {heal1: healAttack, heal2: megaHealAttack , heal3: redirectAttack, heal4: megaRedirectAttack}
+let healthClass1 = {heal1: healAttack, heal2: megaHealAttack , heal3: redirectAttack, heal4: megaRedirectAttack, heal5: reviveAttack, heal6: megaReviveAttack}
 
 // ----- create attack Classes -----
 let attackClass1 = {attack0: normalAttack, attack1: fireAttack, attack2: megaFireAttack, 
@@ -60,10 +63,10 @@ let fire = false;
 let arrayAttacks = [normalAttack, fireAttack, megaFireAttack, waterAttack, megaWaterAttack, 
     confuseAttack, megaConfuseAttack, windAttack, 
     megaWindAttack, iceAttack, megaIceAttack]
-let arrayHealAttacks = [healAttack, megaHealAttack, megaRedirectAttack, redirectAttack]
+let arrayHealAttacks = [healAttack, megaHealAttack, megaRedirectAttack, redirectAttack, reviveAttack, megaReviveAttack]
 
 // ------ players invenory array ----
-let playersInventory = [healItem, megaHealItem, megaFireItem]
+let playersInventory = [healItem, megaHealItem, megaFireItem, reviveItem, megaReviveItem]
 let overallItems = [healItem, megaHealItem, megaFireItem]
 
 // --- nullify classes -----
@@ -72,8 +75,8 @@ let nullClass2 = ['']
 let nullClass3 = ['wind', 'ice']
 
 // ---- actual players and enemies -----
-let player1 = {name: "will", health: 100, divId: "", turnID: 0, stamina: 100, focus: 100, weakness: 'water', strength: '', n: nullClass2, pass: false, passNumber: 0, dead: false, immune: false, knockedOut: true, confused: true, timesConfused: 0, redirect: false, isPlayer: true, attackClass: attackClass1, healthingClass: healthClass1, nextra: false, healthBar: "#playerOneHealth", staminaBar: "#playerOneStamina", focusBar: "#playerOneFocus"}
-let player2 = {name: "tim",  health: 100, divId: "", turnID: 1,  stamina: 100, focus: 100, weakness: 'fire',  strength: '', n: nullClass2, pass: false, passNumber: 0, dead: false, immune: false, knockedOut: true, confused: true, timesConfused: 0, redirect: false, isPlayer: true, attackClass: attackClass2, healthingClass: healthClass1, nextra: false, healthBar: "#playerTwoHealth", staminaBar: "#playerTwoStamina", focusBar: "#playerTwoFocus"}
+let player1 = {name: "will", health: 20, divId: "", turnID: 0, stamina: 100, focus: 100, weakness: 'water', strength: '', n: nullClass2, pass: false, passNumber: 0, dead: false, immune: false, knockedOut: true, confused: false, timesConfused: 0, redirect: false, isPlayer: true, attackClass: attackClass1, healthingClass: healthClass1, nextra: false, healthBar: "#playerOneHealth", staminaBar: "#playerOneStamina", focusBar: "#playerOneFocus"}
+let player2 = {name: "tim",  health: 100, divId: "", turnID: 1,  stamina: 100, focus: 100, weakness: 'fire',  strength: '', n: nullClass2, pass: false, passNumber: 0, dead: false, immune: false, knockedOut: true, confused: false, timesConfused: 0, redirect: false, isPlayer: true, attackClass: attackClass2, healthingClass: healthClass1, nextra: false, healthBar: "#playerTwoHealth", staminaBar: "#playerTwoStamina", focusBar: "#playerTwoFocus"}
 let player2Proxy = {name: "tim",  health: 100, divId: "", turnID: 1,  stamina: 100, focus: 100, weakness: 'fire',  strength: '', n: nullClass2, pass: false, passNumber: 0, dead: false, immune: false, knockedOut: true, confused: true, timesConfused: 0, redirect: false, isPlayer: true, attackClass: attackClass2, healthingClass: healthClass1, nextra: false, healthBar: "#playerTwoHealth", staminaBar: "#playerTwoStamina", focusBar: "#playerTwoFocus"}
 let enemy1 = {name: "enemy1", health: 100, divId: "", turnID: 2,  stamina: 100, focus: 100, weakness: 'fire', strength: 'water', n: nullClass3, dead: false, immune: false, knockedOut: false, confused: false, redirect: false, isPlayer: false, attackClass: attackClass6, healthingClass: healthClass1, nextra: false, healthBar: 'enemy1Health', healthBar2: '#enemy1Health', }
 let enemy2 = {name: "enemy2", health: 100, divId: "", turnID: 3,  stamina: 100, focus: 100, weakness: 'fire', strength: 'water', n: nullClass3, dead: false, immune: false, knockedOut: false, confused: false, redirect: false, isPlayer: false, attackClass: attackClass6, healthingClass: healthClass1, nextra: false, healthBar: 'enemy2Health', healthBar2: '#enemy2Health',}
@@ -412,22 +415,35 @@ function animateBattle(){
 
     }
 
+
     //console.log(array[i].name)
-    // ----- Player Passing turn ------
-    PassTurn()
+    
+    if(array[i].isPlayer && array[i].health > 0)
+    {
+        // ----- Player Passing turn ------
+        PassTurn()
 
-    // ------- player Using Item ---------
-    UseItem()
+        // ------- player Using Item ---------
+        UseItem()
 
-
-    // ---------- Healing Players --------
-    PlayerHealing()
+        // ---------- Healing Players --------
+        PlayerHealing()
+        
+        // ---- player attacking 
+        PlayerAttacking()
+    }else if(array[i].isPlayer && array[i].health <= 0 )
+    {
+        // player is dead 
+        console.log("player has died")
+        //goToNextTurn = true
+        array[i].dead = true
+        goToNextTurn = true
+        
+    }
 
     // ---- enemy attacking -----
     EnemyAttacking()
-
-    // ---- player attacking 
-    PlayerAttacking()
+    
 }
 
 
@@ -439,14 +455,14 @@ function PassTurn()
 {
     // console.log(array[i].pass)
     // console.log(array[i].name)
-    Object.values(array).forEach((items) =>{
-        if(items.isPlayer)
-        {
-            console.log(items.name)
-        }
+    // Object.values(array).forEach((items) =>{
+    //     if(items.isPlayer)
+    //     // {
+    //     //     console.log(items.name)
+    //     // }
         
-    })  
-
+    // })  
+    
     if(array[i].pass)
     {
         document.querySelector('#passTurnButton').disabled = true
@@ -480,7 +496,7 @@ function PassTurn()
         
         
         Object.values(array).forEach((player) =>{
-            if(player.isPlayer)
+            if(player.isPlayer && player.name != array[i].name && player.dead == false)
             {
                 const button = document.createElement('button')
                 console.log(player.name)
@@ -500,6 +516,7 @@ function PassTurn()
 
     if(selectPlayerToPass)
     {
+        document.querySelector('#backToMainMenuFromPass').style.display = 'grid'
         document.querySelector('#differentAttacksMenu').style.display = 'none'
         document.querySelector('#selectingPlayerToPass').style.display = 'grid'
         document.querySelectorAll('button').forEach((button) => {
@@ -515,6 +532,7 @@ function PassTurn()
                         console.log(player)
                         
                         console.log(array.join())
+                        document.querySelector('#backToMainMenuFromPass').style.display = 'none'
                         goToNextTurn = true
                         addOnce = true
                         selectPlayerToPass = false
@@ -539,6 +557,15 @@ function PassTurn()
         console.log("sleeep")
     }
 
+    document.querySelector('#backToMainMenuFromPass').addEventListener('click', (e) => {
+        console.log("button to go backs")
+        selectPlayerToPass = false
+        document.querySelector('#selectingPlayerToPass').replaceChildren(); 
+        document.querySelector('#selectingPlayerToPass').style.display = 'none'
+        document.querySelector('#backToMainMenuFromPass').style.display = 'none'
+        
+    })
+    
 
 }
 let loadingPlayersItems = false
@@ -651,8 +678,7 @@ function UseItem(){
                     console.log("op")
                     document.querySelector('#selectingPlayerToUse').replaceChildren();
                     Object.values(array).forEach((players) =>{
-                        
-                        if(players.isPlayer)
+                        if(players.isPlayer && players.dead === false)
                         {
                             const button = document.createElement('button')
                             console.log(players.name)
@@ -668,6 +694,26 @@ function UseItem(){
 
 
                 }
+
+                if(currentItemSelected.revive  == true){
+                    console.log("op")
+                    document.querySelector('#selectingPlayerToUse').replaceChildren();
+                    Object.values(array).forEach((players) =>{
+                        if(players.isPlayer && players.dead === true)
+                        {
+                            const button = document.createElement('button')
+                            console.log(players.name)
+                            button.innerHTML = players.name
+                            document.querySelector('#selectingPlayerToUse').append(button)
+                        }
+                        
+                    })
+                    
+                    selectPlayerToUseOn = true
+                    loadingPlayersToUsItems = false
+                }
+
+                
 
                 if(currentItemSelected.forPlayer)
                 {
@@ -724,14 +770,17 @@ function UseItem(){
                     document.querySelectorAll('button').forEach((button) => {
                         button.addEventListener('click', (e) => {
                             Object.values(array).forEach((players) =>{
-                                
+                                if(players.dead == true)
+                                {
+                                    console.log("cannot heal becuase they are")
+                                }
                                 if(players.isPlayer)
                                 {
                                     if(e.currentTarget.innerHTML == players.name)
                                     {
                                         console.log("clean")
                                         // now add all info
-                                        if(players.health > 70)
+                                        if(players.health > 70 && players.dead == false)
                                         {
                                             if(goToNextTurn == false)
                                             {   
@@ -766,7 +815,7 @@ function UseItem(){
                                                 
                                             
                                             selectPlayerToUseOn = false
-                                        }else if(players.health < 70)
+                                        }else if(players.health < 70 && players.dead == false)
                                         {
                                             if(goToNextTurn == false)
                                             {   
@@ -799,6 +848,14 @@ function UseItem(){
                                             }
                                              
                                             selectPlayerToUseOn = false
+                                        }else if(players.dead == true){
+                                            console.log("player has been revived")
+                                            players.health = 100
+                                            loadingPlayersToUsItems = false
+                                            goToNextTurn = true
+                                            players.dead = false
+
+
                                         }
                                     }
                                 }
@@ -818,19 +875,27 @@ function UseItem(){
                         // make a for loop 
                         for(let k = 0; k < array.length; k++)
                         {
-                            if(array[k].isPlayer)
+                            if(array[k].isPlayer && array[k].dead == true && currentItemSelected.revive == true)
+                            {
+                                console.log("cannot heal becuase they are")
+                                array[k].health = 100
+                                loadingPlayersToUsItems = false
+                                goToNextTurn = true
+                                array[k].dead = false
+                            }
+                            if(array[k].isPlayer && array[k].dead === false)
                             {
 
                                 // -- this is for health
                                 
-                                if(array[k].health > 70)
+                                if(array[k].health > 70 && array[k].dead == false)
                                 {
                                     let newPlayerHealth = 100
                                     gsap.to(`${array[k].healthBar}`, {
                                         width: newPlayerHealth + '%'
                                     }) 
 
-                                }else if(array[k].health < 70)
+                                }else if(array[k].health < 70 && array[k].dead == false)
                                 {
                                     let newPlayerHealth = array[k].health + currentItemSelected.damage
                                     gsap.to(`${array[k].healthBar}`, {
@@ -1134,6 +1199,10 @@ function EnemyAttacking(){
                                         width: newPlayerHealth + '%'
                                     })
                                     radnomPlayer.health -= randomAttack.damage
+                                    if(radnomPlayer.health <= 0)
+                                    {
+                                        radnomPlayer.dead = true
+                                    }
                                     document.querySelector('#enemyAttackingMenu').innerHTML = array[i].name + ' hit ' + radnomPlayer.name + ' with ' + randomAttack.name + ". orginal health " + playersOldHealth + " now its: " + radnomPlayer.health 
                                 }else if(playerLoseHealth == true && decreasePlayersHealth == true){
                                     document.querySelector('#enemyAttackingMenu').innerHTML = "Player" + array[i].name + "is immune to  " +  randomAttack.type + ' hit ' + radnomPlayer.name + ' with ' + randomAttack.name + ". orginal health " + playersOldHealth + " now its: " + radnomPlayer.health 
@@ -1234,6 +1303,10 @@ function EnemyAttacking(){
                                                 width: newPlayerHealth + '%'
                                             })
                                             player.health -= randomAttack.damage
+                                            if(player.health <= 0)
+                                            {
+                                                player.dead = true
+                                            }
                                             console.log("immune")
                                             console.log(player.name)
                                             //player.health -= randomAttack.damage
@@ -1383,6 +1456,8 @@ function EnemyAttacking(){
     } 
 }
 
+var healthAttackGlobal
+let disableHealAllButton = false
 
 function PlayerHealing(){
     if(array[i].isPlayer == true && array[i].confused == false){
@@ -1440,6 +1515,7 @@ function PlayerHealing(){
                         
                         button.disabled = true
                     }
+
                 })
                 
                 button.addEventListener('click', (e) =>{
@@ -1449,7 +1525,7 @@ function PlayerHealing(){
                         if(e.currentTarget.innerHTML == healAttack.name && healAttack.hitAll == false)
                         {
                             //iterateThroughEnemies = 0
-                    
+                            
                             currentHealAttack = healAttack
                             toggleReadyToHeal = true;
 
@@ -1462,6 +1538,7 @@ function PlayerHealing(){
                             
                             toggleReadyToHeal = true;
                         }
+
                     })
                     
                     
@@ -1480,15 +1557,23 @@ function PlayerHealing(){
             if(iterateThroughPlayers == 0){
  
                 console.log("dream")
+                document.querySelector('#listPlayers').replaceChildren();
+
                 Object.values(array).forEach((player) =>{
                     
-                    if(player.isPlayer == true && player.pass == false)
+                    if(player.isPlayer == true && player.pass == false && player.dead == false && currentHealAttack.revive == false)
                     {
 
                         const button = document.createElement('button')
                         button.innerHTML = player.name
                         document.querySelector('#listPlayers').append(button)
                         
+                    }else if(currentHealAttack.revive == true && player.dead == true){
+                        console.log(currentHealAttack)
+                        console.log("tired")
+                        const button = document.createElement('button')
+                        button.innerHTML = player.name
+                        document.querySelector('#listPlayers').append(button)
                     }
                 })
                 iterateThroughPlayers += 1
@@ -1496,6 +1581,8 @@ function PlayerHealing(){
             console.log(array[i].health)
             if(healAllPlayers == false)
             {
+                document.querySelector('#HealAllButton').style.display = 'none'
+                document.querySelector('#listPlayers').style.display = 'grid'
                 document.querySelectorAll('button').forEach((button) => {
 
                     button.addEventListener('mouseenter', (e) => {
@@ -1521,7 +1608,7 @@ function PlayerHealing(){
                         
     
                         Object.values(array).forEach((player, index) =>{
-                        
+                            
                             if(e.currentTarget.innerHTML == player.name)
                             {
                                
@@ -1530,7 +1617,12 @@ function PlayerHealing(){
                                     player.redirect = true
                                }
 
-                               if(goToNextTurn == false && player.health > player.health - currentHealAttack.damage ){
+                               if(player.dead == true && currentHealAttack.revive == true)
+                               {
+                                player.dead = false
+                               }
+
+                               if(goToNextTurn == false && player.health > player.health - currentHealAttack.damage && player.dead == false){
                                 
                                     let newPlayerHealth = 100
                                     gsap.to(`${player.healthBar}`, {
@@ -1544,7 +1636,7 @@ function PlayerHealing(){
 
                                     array[i].focus -= currentHealAttack.cost
                                     player.health += currentHealAttack.damage
-                               }else if(goToNextTurn == false && player.health < player.health - currentHealAttack.damage ){
+                               }else if(goToNextTurn == false && player.health < player.health - currentHealAttack.damage && player.dead == false){
                                     let newPlayerHealth = 100
                                     gsap.to(`${player.healthBar}`, {
                                         width: newPlayerHealth + '%'
@@ -1557,6 +1649,9 @@ function PlayerHealing(){
                                     array[i].focus -= currentHealAttack.cost
                                     player.health = 100
 
+                               }else if(player.dead == true)
+                               {
+                                console.log('cannot heal because the ')
                                }
                                
                                 
@@ -1578,7 +1673,9 @@ function PlayerHealing(){
             
             if(healAllPlayers)
             {
-                
+                // if(disableHealAllButton == false && currentHealAttack.revive == true)
+                document.querySelector('#listPlayers').style.display = 'none'
+                document.querySelector('#HealAllButton').style.display = 'grid'
                 document.querySelector('#HealAllButton').addEventListener('click', (e) =>{
                     Object.values(array).forEach((player, index) =>{
                         
@@ -1593,7 +1690,12 @@ function PlayerHealing(){
                                 player.redirect = true
                             }
 
-                            if(goToNextTurn == false && player.health < player.health -  currentHealAttack.damage){
+                            if(player.dead == true && currentHealAttack.revive == true)
+                            {
+                                player.dead = false
+                            }
+
+                            if(goToNextTurn == false && player.health < player.health -  currentHealAttack.damage && player.dead == false){
 
                                 let newPlayerHealth = player.health + currentHealAttack.damage
                                 gsap.to(`${player.healthBar}`, {
@@ -1607,7 +1709,7 @@ function PlayerHealing(){
                                 array[i].focus -= currentHealAttack.cost
                                 player.health += currentHealAttack.damage
                                 
-                            }else if(goToNextTurn == false && player.health > player.health -  currentHealAttack.damage)
+                            }else if(goToNextTurn == false && player.health > player.health -  currentHealAttack.damage && player.dead == false)
                             {
                                 let newPlayerHealth = 100
                                 gsap.to(`${player.healthBar}`, {
@@ -1674,6 +1776,7 @@ function PlayerHealing(){
             document.querySelector('#healingMenu').style.display = 'none'
             document.querySelector('#healthingOptions').style.display = 'none'
             document.querySelector('#healthingOptions').replaceChildren();
+            document.querySelector('#listPlayers').replaceChildren();
             toggleHealthMenu = false;
                 // if clicked disable this button and open a new menu 
         })
