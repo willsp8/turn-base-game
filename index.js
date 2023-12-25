@@ -174,22 +174,42 @@ let playersOldHealth
 
 let createEnemyInterface = true
 //animateTown()
-
-function animateBattle(){
+let amountOfEnemies = 3
+let amountEnemiesDie = 0
+let boolEnemyIsAlive = true
+function animateBattle(whoGoesFirst){
     const animateBattleId =  window.requestAnimationFrame(animateBattle)
    // document.querySelector('#battleInterface').style.display = 'block'
     
+    console.log(amountEnemiesDie)
+   if(amountEnemiesDie > 3){
+    console.log("eneee")
+    window.requestAnimationFrame(animateBattle)
+    AnimateTown()
+   }
    // adds players into the game 
     if(pushPlayersInBattle)
     {
        //player1.divId
         // note you can change the way 
-        array.push(player1)
-        array.push(enemy1)
-        array.push(player2)
+        if(whoGoesFirst){
+            array.push(enemy1)
+            array.push(enemy2)
+            array.push(enemy3)
+            array.push(player1)
+            array.push(player2)
+            endTurns = array.length - 1
+            pushPlayersInBattle = false
+        }else{
+            array.push(player1)
+            array.push(player2)
+            array.push(enemy1)
+            array.push(enemy2)
+            array.push(enemy3)
+            endTurns = array.length - 1
+        pushPlayersInBattle = false
+        }
         
-        array.push(enemy2)
-        array.push(enemy3)
         endTurns = array.length - 1
 
         pushPlayersInBattle = false
@@ -580,6 +600,7 @@ let wedontConfusionItem = false
 
 
 function UseItem(){
+
 
     
     if(array[i].isPlayer == true){
@@ -994,6 +1015,7 @@ function UseItem(){
 
 function EnemyAttacking(){
 
+    
     
     if(array[i].isPlayer == false){
         document.querySelector('#differentAttacksMenu').style.display = 'none'
@@ -2161,6 +2183,7 @@ function PlayerAttacking(){
                                         }
                                         if(enemy.health < 0)
                                         {
+                                            amountEnemiesDie += 1
                                             array.splice(index, 1); 
                                         }
                                         //  console.log("pride")
@@ -2241,6 +2264,7 @@ function PlayerAttacking(){
                                     }
                                     if(enemy.health < 0)
                                     {
+                                        amountEnemiesDie += 1
                                         array.splice(index, 1); 
                                     }
                                     
