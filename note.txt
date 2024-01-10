@@ -1,3 +1,6 @@
+
+zoom for backgrounds: 170.00%
+
 1. create the interface for the game 
 
 1. when the player hits the button

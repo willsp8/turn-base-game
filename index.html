@@ -12,7 +12,7 @@
             margin: 0;
         }
     </style>
-    <div style="display: inline-block; position: relative;">
+    <div style="display: inline-block; position: relative; background-color: white;">
         <div id ="overlappingDiv"style="background-color: black; position: absolute; top: 0; right: 0; bottom: 0; left: 0; opacity: 0; pointer-events: none; z-index: 10;">
 
         </div>
@@ -94,7 +94,7 @@
             
         
         </div>
-        
+        <button id="play"> play Music </button>
         <div id="enemyStatus"style="
             background-color: white; 
             width: 250; 
@@ -107,10 +107,11 @@
             display: grid;
         ">
             
-        
+
         </div>
         <canvas id="canvas"></canvas>
-        <div style="
+        <div id="allMenu"
+         style="
             background-color: white; 
             height: 140px; 
             position: absolute;
@@ -137,8 +138,8 @@
             <div id="listEnemies" style="width: 33.33%; display: grid;"> 
 
             </div>
-            <button id="backButton"> back </button>
-            <button id="backButton2"> back2 </button>
+            <button id="backButton" style="display: grid;"> back </button>
+            <button id="backButton2" style="display: grid;"> back2 </button>
 
 
 

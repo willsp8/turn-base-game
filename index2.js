@@ -13,6 +13,14 @@ canvas.height = 800
 
 canvas.fillStyle = "blue";
 
+
+var stop = false;
+var frameCount = 0;
+//var $results = $("#results");
+var fps, fpsInterval, startTime, now, then, elapsed;
+
+
+
 const image = new Image()
 image.src = './assets/land_2_copy.png'
 //image.src = './assets/Screenshot 2023-06-11 at 10.24.02 PM.png'
@@ -71,22 +79,91 @@ class Sprite {
     {
         this.position = position
         this.velocity = velocity
-        this.height = 150
-        this.width = 50
-        this.image = imageSrc
+        this.height = 50
+        this.width = 27
+        
+        
     }
     draw()
     {
-        
+    
+
         c.fillStyle = 'red'
-        c.fillRect(this.position.x, this.position.y, 100, 100)
+        c.fillRect(this.position.x, this.position.y, 27, 50)
        // c.clearRect(0, 0, canvas.width, canvas.height);
     }
     update(){
         this.draw()
         this.position.y += this.velocity.y
         this.position.x += this.velocity.x
-        if(this.position.y + this.height + this.velocity.y >= canvas.height - 150){
+        if(this.position.y + this.height + this.velocity.y >= canvas.height - 305){
+            this.velocity.y = 0
+        }else{
+            this.velocity.y += gravity
+        }
+        
+    }
+}
+
+class Sprite4 {
+    constructor({position, velocity, imageSrc, scale = 1, framesMax = 1, offset = {x: 0, y:0 }, sprites})
+    {
+        this.position = position
+        this.velocity = velocity
+        this.height = 50
+        this.width = 27
+        this.framesMax = framesMax
+        this.currentFrame = 0
+        this.framesElapsed = 0
+        this.framesHold = 3
+        this.sprites = sprites
+        this.offset = offset
+        this.scale = scale
+        this.image = new Image()
+        this.image.src = imageSrc
+        for(const sprite in this.sprites){
+            sprites[sprite].image = new Image()
+            sprites[sprite].image.src = sprites[sprite].imageSrc
+        }
+        
+    }
+
+    animateFrames(){
+        this.framesElapsed++
+        if(this.framesElapsed % this.framesHold === 0){
+            if(this.currentFrame < this.framesMax - 1){
+                this.currentFrame ++
+                
+            }else{
+                this.currentFrame = 0
+            }
+        }
+    }
+
+    draw()
+    {
+        // c.fillStyle = 'red'
+        // c.fillRect(this.position.x, this.position.y, 27, 50)
+        c.drawImage(
+            this.image,
+            this.currentFrame * (this.image.width / this.framesMax),
+            0,
+            this.image.width / this.framesMax,
+            this.image.height,
+            this.position.x - this.offset.x,
+            this.position.y - this.offset.y, 
+            (this.image.width / this.framesMax) * this.scale,
+            this.image.height * this.scale)
+        
+       // c.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    update(){
+        this.draw()
+        this.animateFrames()
+        
+        this.position.y += this.velocity.y
+        this.position.x += this.velocity.x
+        if(this.position.y + this.height + this.velocity.y >= canvas.height - 305){
             this.velocity.y = 0
         }else{
             this.velocity.y += gravity
@@ -96,19 +173,20 @@ class Sprite {
 }
 
 class Sprite2{
-    constructor({position, velocity, imageSrc})
+    constructor({position, velocity, imageSrc, set})
     {
         this.position = position
         this.velocity = velocity
         this.height = 150
         this.image = new Image()
         this.image.src = imageSrc
+        this.set = set
+        
     }
     draw()
     {
-        
-        
         c.drawImage(this.image, this.position.x,30)
+        
        // c.clearRect(0, 0, canvas.width, canvas.height);
     }
     update(){
@@ -137,7 +215,7 @@ class Sprite3 {
         this.scale = scale
         this.fm  = fm 
         this.frameCurrent = 0
-        this.framesElapsed = 0
+        
         this.framesHold = 5
         this.offset = offset
         
@@ -192,74 +270,107 @@ const background = new Sprite2({
         x: 0,
         y: 0
     },
-    imageSrc: './assets/land_3.png'
+    imageSrc: './assets/ice land_v3.png',
+    set: 'none'
     
 })
 
 const background2 = new Sprite2({
     position: {
-        x: 1000,
-        y: 0,
+        x: 0,
+        y: -2000,
     },
     velocity: {
         x: 0,
-        y: 0
+        y: 200
     },
-    imageSrc: './assets/land_2_copy.png'
-    
+    imageSrc: './assets/ice land_ideas_foreGround1png.aseprite.png',
+    set: 'foreGround'
 })
 const background3 = new Sprite2({
     position: {
-        x: 2000,
+        x: 0,
         y: 0,
     },
     velocity: {
         x: 0,
         y: 0
     },
-    imageSrc: './assets/land_2_copy.png'
+    imageSrc: './assets/level_one_ground.png',
+    set: 'snow'
     
 })
 const background4 = new Sprite2({
     position: {
-        x: 3000,
-        y: 0,
+        x: 0,
+        y: -100,
     },
     velocity: {
         x: 0,
         y: 0
     },
-    imageSrc: './assets/land_2_copy.png'
+    imageSrc: './assets/level_one.png',
+    set: 'none'
     
 })
 const background5 = new Sprite2({
     position: {
-        x: 4000,
+        x: 0,
         y: 0,
     },
     velocity: {
         x: 0,
         y: 0
     },
-    imageSrc: './assets/land_2_copy.png'
+    imageSrc: './assets/ice land_ideas_filter.png',
+    set: 'none'
     
 })
 
 const background6 = new Sprite2({
     position: {
-        x: 5000,
+        x: 0,
         y: 0,
     },
     velocity: {
         x: 0,
         y: 0
     },
-    imageSrc: './assets/land_2_copy.png'
+    imageSrc: './assets/level_one_hills_2.png',
+    set: 'hills'
+    
+})
+
+const background7 = new Sprite2({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    },
+    imageSrc: './assets/level_one_hills.png',
+    set: 'forest'
+    
+})
+
+const background8 = new Sprite2({
+    position: {
+        x: 0,
+        y: 0,
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    },
+    imageSrc: './assets/ice land_ideas_sunset.png',
+    set: 'sunset'
     
 })
 
 
-const player = new Sprite({
+const player = new Sprite4({
     position: {
         x: 100,
         y: 400,
@@ -267,7 +378,35 @@ const player = new Sprite({
     velocity: {
         x: 0,
         y: 0
-    }
+    },
+    offset:{
+        x: 125,
+        y: 151
+    },
+    sprites: {
+        idle: {
+            imageSrc: './assets/IgnoreFolder/shadowStormIdle.png',
+            framesMax: 12
+        },
+        idleLeft: {
+            imageSrc: './assets/IgnoreFolder/shadowStormIdle_left.png',
+            framesMax: 12
+        },
+        run: {
+            imageSrc: './assets/IgnoreFolder/Shadow_Run.png',
+            framesMax: 8
+        },
+        runLeft: {
+            imageSrc: './assets/IgnoreFolder/Shadow_Run_left.png',
+            framesMax: 8
+        }
+
+        
+    }, 
+    framesMax: 12,
+    scale: 1.8,
+    imageSrc: './assets/IgnoreFolder/shadowStormIdle.png'
+    
 })
 
 const enemy = new Sprite({
@@ -300,81 +439,124 @@ var currentEnemyFighting
 const enemiesMovbles = [enemy, enemyTwo]
 
 
-//AnimateTown()
-//animateBattle2()
-startAnimating(120)
+
+function startAnimating2(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    console.log("hey")
+   // AnimateTown()
+   animateBattle2()
+}
+
+startAnimating2(120)
+
+//
+//startAnimating(120)
 
 
-const movablesArray = [background, background2, background3, background4, background5, background6]
+const movablesArray = [background, background2, background3, background4, background5, background6, background7, background8]
 
+let playSongs = false
 function AnimateTown(){
+    //console.log("hadh")
     let townAnimateId =  window.requestAnimationFrame(AnimateTown)
-    c.clearRect(0, 0, canvas.width, canvas.height);
-    
-   // c.drawImage(image, 0, 0)
+    console.log(townAnimateId)
 
-   // for reference later
-   if(!keys.d.pressed)
-    {
-    background2.update()
-    background3.update()
-    background4.update()
-    background5.update()
+    now = Date.now();
+    elapsed = now - then;
+    
+    //console
+    
+
+    // if enough time has elapsed, draw the next frame
+
+    if (elapsed > fpsInterval) {
+     
+        // Get ready for next frame by setting then=now, but also adjust for your
+        // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+        then = now - (elapsed % fpsInterval);
+
+        
+        c.clearRect(0, 0, canvas.width, canvas.height);
+
+    // c.drawImage(image, 0, 0)
+    
+    
+    // so we need to animate the front 
+    
+    
+    // for reference later
+    //background2.update()
+    
+    
+    
+    
+
+    // animate sun set 
+    background8.update()
+
+    // animate the hills 
     background6.update()
-    background .update()
-    }
 
-
-   
-    background2.update()
+    // animate the forest
+    background7.update() 
+    
+    // animate the snow 
     background3.update()
-    background4.update()
-    background5.update()
-    background6.update()
-    background .update()
-    
-    
+    // animate the player
     player.update()
-    
+    // animate the foreground 
+    background2.update()
+    // animate black bar
+    background4.update()    
+    // animate filter
+    background5.update()
+
+
+    // ------ Enemies ------
     // enemy.update()
     // enemyTwo.update() 
 
     enemiesMovbles.forEach((movables) =>{
         //movables.update()
     })
-    //console.log(player.position.y)
-   // console.log(player)
+    
+    if(playerSpotted && !toggleBattle){
+        console.log(currentEnemyFighting)
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        window.cancelAnimationFrame(townAnimateId)
+        animateBattle(enemystriksFrist)
+        //toggleBattle = true
+    }
 
+    player.velocity.x = 0
+    if(player.velocity.y > 15){
+            player.velocity.y = 15
+        }   
 
-   if(playerSpotted && !toggleBattle){
-    console.log(currentEnemyFighting)
-    c.clearRect(0, 0, canvas.width, canvas.height);
-    window.cancelAnimationFrame(townAnimateId)
-    animateBattle(enemystriksFrist)
-    //toggleBattle = true
-   }
+    if(player.velocity > 3){
+        player.velocity.x = 3
+    }else if(player.velocity < -3){
+        player.velocity.x = -3
+    }
 
-   player.velocity.x = 0
-   if(player.velocity.y > 1){
-        player.velocity.y = 1
-    }   
+   
 
-   if(player.velocity > 3){
-    player.velocity.x = 3
-   }else if(player.velocity < -3){
-    player.velocity.x = -3
-   }
-
+    
+    
     if(keys.d.pressed)
     {
+        player.framesMax = 8
+        player.image = player.sprites.run.image
         console.log("heeyye ")
         console.log(player.position.x)
-        if(player.position.x < 900){
+        if(player.position.x < 400){
             if(keys.space.pressed){
                 console.log("let run")
                 
-                player.velocity.x += 3
-                player.velocity.x = player.velocity.x / 3
+                player.velocity.x += 
+                player.velocity.x = player.velocity.x / 1.5
                 
             }else{
 
@@ -388,23 +570,42 @@ function AnimateTown(){
             player.velocity.x =  0
             console.log("hey")
             movablesArray.forEach((obj)=>{
-                obj.position.x -= 3
+                console.log(obj.set)
+                if(obj.set == 'foreGround'){
+                    obj.position.x -= 3
+                }else if(obj.set == 'forest'){
+                    obj.position.x -= 0.2
+                }else if(obj.set == 'snow'){
+                    obj.position.x -= 1.5
+                }else if(obj.set == 'hills'){
+                    obj.position.x -= 0.3
+                }else if(obj.set == 'sunset'){
+                    obj.position.x -= 0
+                }else{
+                    obj.position.x -= 1.5
+                }
+                    
             })
             enemiesMovbles.forEach((movables) =>{
                 if(keys.space.pressed){
                     movables.position.x -= 3 /3
                     //movables.position.x = movables.position.x / 3 
                 }else{
-                    movables.position.x -= 3
+                    console.log(movables.set)
+                    if(movables.set == 'foreGround'){
+                        movables.position.x -= 7
+                    }else{
+                        movables.position.x -= 3
+                    }
+                    
                 }
             })
         }
         
-    }
-
-    if(keys.a.pressed)
+    }else if(keys.a.pressed)
     {
-        
+        player.framesMax = 8
+        player.image = player.sprites.runLeft.image
         if(player.position.x > 100){
             // now move the background d
             
@@ -414,7 +615,12 @@ function AnimateTown(){
                 player.velocity.x = player.velocity.x / 3
             }else{
                 
+                
                 player.velocity.x -= 3
+
+                // for slopes 
+                // player.velocity.y = 0
+                // player.position.y -= 1
             }
             console.log(player.position.x)
         }
@@ -422,18 +628,42 @@ function AnimateTown(){
             // now move the background
             player.velocity.x = 0
             movablesArray.forEach((obj)=>{
-                obj.position.x += 3
+                if(obj.set == 'foreGround'){
+                    obj.position.x += 3
+                }else if(obj.set == 'forest'){
+                    obj.position.x += 0.2
+                }else if(obj.set == 'snow'){
+                    obj.position.x += 1.5
+                }else if(obj.set == 'hills'){
+                    obj.position.x += 0.3
+                }else if(obj.set == 'sunset'){
+                    obj.position.x += 0
+                }else{
+                    obj.position.x += 1.5
+                }
             })
             enemiesMovbles.forEach((movables) =>{
                 if(keys.space.pressed){
                     movables.position.x += 3 /3
                 }else{
+                    
+
                     movables.position.x += 3
                 }
 
                 
             })
         } 
+    }else{
+        if(lastKey == 'd' && keys.d.pressed == false){
+            player.framesMax = 12
+            player.image = player.sprites.idle.image
+        
+        }if(lastKey == 'a' && keys.a.pressed == false){
+            player.framesMax = 12
+            player.image = player.sprites.idleLeft.image
+        
+        }
     }
 
     enemiesMovbles.forEach((movables) =>{
@@ -458,7 +688,7 @@ function AnimateTown(){
                 console.log("alert")
             }
             //player.velocity.x =  +6
-           // moving = false
+        // moving = false
         }
     
         if(rechtangularCollision({
@@ -514,7 +744,7 @@ function AnimateTown(){
             fired = false;
         })
     }
-    
+    }
 
     // now we add the background 
     
