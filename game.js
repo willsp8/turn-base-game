@@ -195,15 +195,15 @@ const restoreStamina = {name: 'Restore Stamina', amount: 3, damage: 0, regenHeal
 const restoreStaminaForAllItem = {name: 'Restore Stamina All', amount: 10,damage: 0, regenHealth: 0, focusCost: 40, staminaCost: 0, healConfused: false, attackConfused: true, element: 'heal', forAll: true, healing: true, sleep: false, cureConfusion: false, cureSleep: false, cureKnockOut: false, redirect: false, revive: false, animation: AttackOneAnimations}
 
 
-const attackClass1 = [normalAttack, normalAttackForAll, normalHeal, normalhealForAll, sleepAttack, sleepAttackForAll, confusedAttack, confusedAttackForAll, waterAttack, waterAttackForAll, cloneAttack, divideByZeroAttack, redirect, redirectForAll]
+const attackClass1 = [asympototeForAll, normalAttack, normalAttackForAll, normalHeal, normalhealForAll, sleepAttack, sleepAttackForAll, confusedAttack, confusedAttackForAll, waterAttack, waterAttackForAll, cloneAttack, divideByZeroAttack, redirect, redirectForAll]
 const attackClass3 = [earthAttack]
 const attackClass2 = [normalAttack, normalAttackForAll, normalHeal, normalhealForAll, sleepAttack, sleepAttackForAll, confusedAttack, cureSleepHeal, cureConfusionForAll, cureSleepForAll, cureConfusionHeal, revive, reviveAll, redirect, redirectForAll]
-const arrayAttacks = [normalAttack, normalAttackForAll, normalHeal, normalhealForAll, sleepAttack, sleepAttackForAll, confusedAttack, confusedAttackForAll, waterAttack, waterAttackForAll, cloneAttack, divideByZeroAttack, sleepAttackForAll, confusedAttack, cureSleepHeal, cureConfusionForAll, cureSleepForAll, cureConfusionHeal, revive, reviveAll, redirect, redirectForAll]
+const arrayAttacks = [asympototeForAll, normalAttack, normalAttackForAll, normalHeal, normalhealForAll, sleepAttack, sleepAttackForAll, confusedAttack, confusedAttackForAll, waterAttack, waterAttackForAll, cloneAttack, divideByZeroAttack, sleepAttackForAll, confusedAttack, cureSleepHeal, cureConfusionForAll, cureSleepForAll, cureConfusionHeal, revive, reviveAll, redirect, redirectForAll]
 const inventory = [normalHealItem, normalhealForAllItem, cureSleepHealItem, cureConfusionForAllItem, cureConfusionHealItem, reviveItem, reviveAllItem, cureSleepForAllItem, restoreFocus, restoreFocusForAllItem, restoreStamina, restoreStaminaForAllItem]
 const arrayInvtory = [normalHealItem, normalhealForAllItem, cureSleepHealItem, cureConfusionForAllItem, cureConfusionHealItem, cureConfusionForAllItem, reviveItem, reviveAllItem, cureSleepForAllItem, restoreFocus, restoreFocusForAllItem, restoreStamina, restoreStaminaForAllItem]
 
 const nullClass = ['']
-const nullClass2 = ['fire', 'water']
+const nullClass2 = ['water']
 
 const weaknessesClass = ['fire', 'earth']
 const weaknessesClass2 = ['earth', 'water']
@@ -836,20 +836,20 @@ const cloneOneAnimations = new Sprite5({
 })
 
 var playerOne = {
-    name: 'Player One',    
-    health: 400, 
+    name: 'Swan',    
+    health: 100, 
     maxHealth: 100,
     stamina: 100,
     maxStamina: 100,
     focus: 100,
-    dodge: 0.4,
+    dodge: 0.7,
     dodged: false,
     maxFocus: 100,
     isPlayAble: true,
     knockedOut: false,
     isSleeping: false,
     nullSleeping: false,
-    redirect: true,
+    redirect: false,
     weakness: weaknessesClass2,
     attackClass: attackClass1,
     knockedOutCount: 0,
@@ -883,7 +883,7 @@ var playerOne = {
 }
 
 var playertwo = {
-    name: 'Player two',    
+    name: 'Hannah',    
     health: 100, 
     maxHealth: 100,
     stamina: 100,
@@ -932,7 +932,7 @@ var playertwo = {
 }
 
 var playerThree = {
-    name: 'Player Three',    
+    name: 'Headache',    
     health: 100, 
     maxHealth: 100,
     stamina: 100,
@@ -1026,7 +1026,7 @@ var enemy2 = {
     name: 'Enemy Two',
     health: 20,
     maxHealth: 100,
-    dodge: 0.7,
+    dodge: 0.0,
     dodged: false,
     isPlayAble: false,
     knockedOut: false,
@@ -1279,6 +1279,8 @@ var cloneThree = {
 
 }
 
+let endBattle = true
+
 
 let openAttackMenu = true
 let hitOne = false
@@ -1332,10 +1334,11 @@ let playAnimation
 
 function animateBattle2(whoGoesFirst){
     const animateBattleId =  window.requestAnimationFrame(animateBattle2)
-   //    console.log(animateBattleId)
+    console.log(animateBattleId)
 
     now = Date.now();
     elapsed = now - then;
+    console.log("battle started")
 
     // if enough time has elapsed, draw the next frame
 
@@ -1353,6 +1356,7 @@ function animateBattle2(whoGoesFirst){
             
             
             if(whoGoesFirst){
+                enetityArray = []
                 enetityArray.push(playerOne)
                 enetityArray.push(playertwo)
                 enetityArray.push(playerThree)
@@ -1369,8 +1373,21 @@ function animateBattle2(whoGoesFirst){
                 enetityArray2.push(enemy4) 
                 
             }else{
-                enetityArray.push(enemyOne)
+                enetityArray = []
                 enetityArray.push(playerOne)
+                enetityArray.push(playertwo)
+                enetityArray.push(playerThree)
+                enetityArray.push(enemyOne)
+                enetityArray.push(enemy2) 
+                enetityArray.push(enemy3) 
+                enetityArray.push(enemy4) 
+                enetityArray2.push(playerOne)
+                enetityArray2.push(playertwo)
+                enetityArray2.push(playerThree)
+                enetityArray2.push(enemyOne)
+                enetityArray2.push(enemy2) 
+                enetityArray2.push(enemy3) 
+                enetityArray2.push(enemy4) 
             }
 
             // creating interface 
@@ -1383,7 +1400,7 @@ function animateBattle2(whoGoesFirst){
 
         
             entity = enetityArray[0]
-
+            c.clearRect(0, 0, canvas.width, canvas.height);
             background8.update()
 
             // animate the hills 
@@ -1396,8 +1413,8 @@ function animateBattle2(whoGoesFirst){
             background3.update()
 
             
-            playersTurnSpot.update()
-            enemiesTurnSpot.update()
+            // playersTurnSpot.update()
+            // enemiesTurnSpot.update()
 
        
             if(entity.isPlayAble && entity.playAnimation == false){
@@ -1574,7 +1591,39 @@ function animateBattle2(whoGoesFirst){
                     enemyWins = true
                 }else if(enemiesDead.length == 0){
                     playerWins = true
-                    console.log("winners")
+                    console.log("winners2222")
+                    
+                    gsap.to('#overlappingDiv', {
+                        opacity: 1,
+                        onComplete: () => {
+                            window.cancelAnimationFrame(animateBattleId)
+                        }
+                    })
+        
+        
+                    var em = document.getElementById("overlappingDiv");
+        
+                    var  temp = window.getComputedStyle(em).getPropertyValue("opacity");
+                    console.log("temop" + temp)
+                    if(temp > 0.90){
+                        window.cancelAnimationFrame(animateBattleId)
+                        
+                        startTheBattle = true
+                        AnimateTown()
+        
+                    }
+                    console.log(startTheBattle)
+                    if(startTheBattle){
+                        gsap.to('#overlappingDiv', {
+                            opacity: 0,
+                            onComplete: () => {
+                             window.cancelAnimationFrame(animateBattleId)
+                            }
+                        })
+        
+                        enemy_Two.position.x = -10000
+        
+                    }
                 }
 
                 Object.values(enetityArray).forEach((player, index) =>{
@@ -1584,15 +1633,15 @@ function animateBattle2(whoGoesFirst){
                 })
                 
                 // console.log(enetityArray)
-                gsap.to(`${entity.nameStatus}`, { 
-                    rotation: 360,
+                // gsap.to(`${entity.nameStatus}`, { 
+                //     rotation: 360,
                     
                     
-                    // special properties
-                    // how long the animation lasts
-                    repeat: 1, // the number of repeats - this will play 3 times
-                    yoyo: true, // this will alternate back and forth on each repeat. Like a yoyo
-                })
+                //     // special properties
+                //     // how long the animation lasts
+                //     repeat: 1, // the number of repeats - this will play 3 times
+                //     yoyo: true, // this will alternate back and forth on each repeat. Like a yoyo
+                // })
 
                 // enemy status 
                 enetityArray.forEach((et) => {
@@ -1906,7 +1955,40 @@ function animateBattle2(whoGoesFirst){
             } 
         }else{
             playerWins = true
-            console.log("winners ")
+            console.log("22222 winners")
+            gsap.to('#overlappingDiv', {
+                opacity: 1,
+                onComplete: () => {
+                    window.cancelAnimationFrame(animateBattleId)
+                }
+            })
+
+
+            var em = document.getElementById("overlappingDiv");
+
+            var  temp = window.getComputedStyle(em).getPropertyValue("opacity");
+            console.log("temop" + temp)
+            if(temp > 0.90){
+                window.cancelAnimationFrame(animateBattleId)
+                
+                //startTheBattle = true
+                endBattle = true
+                startTheBattle = false
+                AnimateTown()
+
+            }
+            // console.log(startTheBattle)
+            // if(startTheBattle){
+            //     gsap.to('#overlappingDiv', {
+            //         opacity: 0,
+            //         onComplete: () => {
+            //          window.cancelAnimationFrame(animateBattleId)
+            //         }
+            //     })
+
+            //     enemy_Two.position.x = -10000
+
+            // }
         }
     }
 }
@@ -4364,10 +4446,34 @@ function createEnemyInterface(array){
 }
 
 function createPlayerInterface(array){
+
+    document.querySelector('#PlayersStatus').innerHTML = "";
+            
+
+
+            
+
+    document.querySelector('#PlayersStatus').innerHTML = "";
+
     
     Object.values(array).forEach((enemy) => {
         if(enemy.isPlayAble == true)
         {
+
+
+        
+            gsap.to(`${enemy.healthBar}`, {
+                width: player.health + '%'
+            })
+
+            gsap.to(`${enemy.focusBar}`, {
+                width: enemy.focus + '%'
+            })
+
+            
+            gsap.to(`${enemy.staminaBar}`, {
+                width: player.stamina + '%'
+            })
 
             var enemyH1 = document.createElement('h1');
             enemyH1.style.fontSize = '16px'
@@ -4505,5 +4611,540 @@ function createCloneInterface(array){
         
 
     })
+
+}
+
+
+function startOver(){
+
+//   knockedOutCounter = 1
+//  confusedCounter = 2
+// sleepCounter = 1
+
+// knockedOutCounterPlayer = 1
+// confusedCounterPlayer = 2
+//  sleepCounterPlayer = 2
+// timerForI = {
+//     i: 0
+// }
+document.querySelector('#PlayersStatus').style.display ='grid'
+document.querySelector('#enemyStatus').style.display ='grid'
+document.querySelector('#allMenu').style.display ='flex'
+
+
+
+
+// playerOne = {
+//     name: 'Player One',    
+//     health: 400, 
+//     maxHealth: 100,
+//     stamina: 100,
+//     maxStamina: 100,
+//     focus: 100,
+//     dodge: 0.4,
+//     dodged: false,
+//     maxFocus: 100,
+//     isPlayAble: true,
+//     knockedOut: false,
+//     isSleeping: false,
+//     nullSleeping: false,
+//     redirect: true,
+//     weakness: weaknessesClass2,
+//     attackClass: attackClass1,
+//     knockedOutCount: 0,
+//     confusedCount: 0,
+//     sleepCount: 0,
+//     confused: false,
+//     nullify: nullClass,
+//     passedTurn: false, 
+//     isClone: false,
+//     spawnClone: false,
+//     cloningAbility: false,
+//     dead: false,
+//     block: false,
+//     nameId: "playerOneName",
+//     nameStatus: "#playerOneName",
+//     healthBarId: "playerOneHealth",
+//     healthBar: "#playerOneHealth",
+//     staminaBarId: "playerOneStamina",
+//     staminaBar: "#playerOneStamina",
+//     focusBarId: "playerOneFocus",
+//     focusBar: "#playerOneFocus",
+//     spriteAnimation: playerOneAnimations,
+//     playAnimation: false,
+//     playHealingAnimation: false,
+//     playHealingAnimationOnce: false,
+//     inttialSpot: {
+//         x: 100,
+//         y: 400,
+//     },
+
+// }
+
+// playertwo = {
+//     name: 'Player two',    
+//     health: 100, 
+//     maxHealth: 100,
+//     stamina: 100,
+//     maxStamina: 100,
+//     focus: 100,
+//     dodge: 0.5,
+//     dodged: false,
+//     maxFocus: 100,
+//     isPlayAble: true,
+//     knockedOut: false,
+//     isSleeping: false,
+//     nullSleeping: false,
+//     redirect: false,
+//     dead: false,
+//     block: false,
+//     weakness: weaknessesClass2,
+//     attackClass: attackClass2,
+//     nameId: "playerTwoName",
+//     nameStatus: "#playerTwoName",
+//     healthBarId: "playerTwoHealth",
+//     healthBar: "#playerTwoHealth",
+//     staminaBarId: "playerTwoStamina",
+//     staminaBar: "#playerTwoStamina",
+//     focusBarId: "playerTwoFocus",
+//     focusBar: "#playerTwoFocus",
+//     knockedOutCount: 0,
+//     confusedCount: 0,
+//     sleepCount: 0,
+//     confused: false,
+//     nullify: nullClass2,
+//     passedTurn: false, 
+//     isClone: false,
+//     spawnClone: false,
+//     cloningAbility: false,
+//     spriteAnimation: playerTwoAnimations,
+//     playAnimation: false,
+//     playHealingAnimation: false,
+//     playHealingAnimationOnce: false,
+//     inttialSpot: {
+//         x: 150,
+//         y: 500,
+//     },
+    
+
+
+// }
+
+// playerThree = {
+//     name: 'Player Three',    
+//     health: 100, 
+//     maxHealth: 100,
+//     stamina: 100,
+//     maxStamina: 100,
+//     focus: 100,
+//     dodge: 0.5,
+//     dodged: false,
+//     maxFocus: 100,
+//     isPlayAble: true,
+//     knockedOut: false,
+//     isSleeping: false,
+//     nullSleeping: false,
+//     redirect: false,
+//     dead: false,
+//     block: false,
+//     weakness: weaknessesClass,
+//     attackClass: attackClass2,
+//     nameId: "player3Name",
+//     nameStatus: "#player3Name",
+//     healthBarId: "player3Health",
+//     healthBar: "#player3Health",
+//     staminaBarId: "player3Stamina",
+//     staminaBar: "#player3Stamina",
+//     focusBarId: "player3Focus",
+//     focusBar: "#player3Focus",
+//     knockedOutCount: 0,
+//     confusedCount: 0,
+//     sleepCount: 0,
+//     confused: false,
+//     nullify: nullClass2,
+//     passedTurn: false, 
+//     isClone: false,
+//     spawnClone: false,
+//     cloningAbility: false,
+//     spriteAnimation: playerThreeAnimations,
+//     playAnimation: false,
+//     playHealingAnimation: false,
+//     playHealingAnimationOnce: false,
+//     inttialSpot: {
+//         x: 100,
+//         y: 560,
+//     },
+
+
+// }
+
+ enemyOne = {
+    name: 'Enemy One',
+    health: 100,
+    maxHealth: 100,
+    dodge: 0.0,
+    dodged: false,
+    isPlayAble: false,
+    knockedOut: false,
+    isSleeping: false,
+    nullSleeping: false,
+    redirect: false,
+    block: false,
+    weakness: weaknessesClass,
+    attackClass: attackClass3,
+    nameId: "Enemey1Name",
+    nameStatus: "#Enemey1Name",
+    healthBarId: 'enemy1Health',
+    healthBar: '#enemy1Health',
+    sleepBarId:"Enemey1Sleep",
+    sleepBar:"#Enemey1Sleep",
+    confusedBarId:"Enemey1Confused",
+    confusedBar:"#Enemey1Confused",
+    knockedOutBarId:"Enemey1Out",
+    knockedOutBar:"#Enemey1Out",
+    knockedOutCount: 0,
+    confusedCount: 0,
+    sleepCount: 0,
+    confused: false,
+    nullify: nullClass2,
+    passedTurn: false, 
+    isClone: false,
+    spawnClone: false,
+    cloningAbility: false,
+    dead: false,
+    spriteAnimation: enemyOneAnimations,
+    playAnimation: false,
+    inttialSpot: {
+        x: 500,
+        y: 400,
+    }
+
+}
+
+enemy2 = {
+    name: 'Enemy Two',
+    health: 100,
+    maxHealth: 100,
+    dodge: 0.1,
+    dodged: false,
+    isPlayAble: false,
+    knockedOut: false,
+    isSleeping: false,
+    nullSleeping: false,
+    redirect: false,
+    block: false,
+    weakness: weaknessesClass,
+    attackClass: attackClass3,
+    nameId: "Enemey2Name",
+    nameStatus: "#Enemey2Name",
+    healthBarId: 'enemy2Health',
+    healthBar: '#enemy2Health',
+    sleepBarId:"Enemey2Sleep",
+    sleepBar:"#Enemey2Sleep",
+    confusedBarId:"Enemey2Confused",
+    confusedBar:"#Enemey2Confused",
+    knockedOutBarId:"Enemey2Out",
+    knockedOutBar:"#Enemey2Out",
+    knockedOutCount: 0,
+    confusedCount: 0,
+    sleepCount: 0,
+    confused: false,
+    nullify: nullClass,
+    passedTurn: false, 
+    isClone: false,
+    spawnClone: false,
+    cloningAbility: false,
+    dead: false,
+    spriteAnimation: enemyTwoAnimations,
+    playAnimation: false,
+    inttialSpot: {
+        x: 500,
+        y: 500,
+    }
+
+}
+
+enemy3 = {
+    name: 'Enemy Three',
+    health: 100,
+    dodge: 0,
+    dodged: false,
+    maxHealth: 100,
+    isPlayAble: false,
+    knockedOut: false,
+    isSleeping: false,
+    nullSleeping: false,
+    redirect: false,
+    block: false,
+    weakness: weaknessesClass2,
+    attackClass: attackClass3,
+    nameId: "Enemey3Name",
+    nameStatus: "#Enemey3Name",
+    healthBarId: 'enemy3Health',
+    healthBar: '#enemy3Health',
+    sleepBarId:"Enemey3Sleep",
+    sleepBar:"#Enemey3Sleep",
+    confusedBarId:"Enemey3Confused",
+    confusedBar:"#Enemey3Confused",
+    knockedOutBarId:"Enemey3Out",
+    knockedOutBar:"#Enemey3Out",
+    knockedOutCount: 0,
+    confusedCount: 0,
+    sleepCount: 0,
+    confused: false,
+    nullify: nullClass,
+    passedTurn: false, 
+    isClone: false,
+    spawnClone: false,
+    cloningAbility: false,
+    dead: false,
+    spriteAnimation: enemyThreeAnimations,
+    playAnimation: false,
+    inttialSpot: {
+        x: 500,
+        y: 560,
+    }
+
+}
+
+enemy4 = {
+    name: 'Enemy Four',
+    health: 100,
+    dodge: 0.0,
+    dodged: false,
+    maxHealth: 100,
+    isPlayAble: false,
+    knockedOut: false,
+    isSleeping: false,
+    nullSleeping: false,
+    redirect: false,
+    block: false,
+    weakness: weaknessesClass2,
+    attackClass: attackClass3,
+    nameId: "Enemey4Name",
+    nameStatus: "#Enemey4Name",
+    healthBarId: 'enemy4Health',
+    healthBar: '#enemy4Health',
+    sleepBarId:"Enemey4Sleep",
+    sleepBar:"#Enemey4Sleep",
+    confusedBarId:"Enemey4Confused",
+    confusedBar:"#Enemey4Confused",
+    knockedOutBarId:"Enemey4Out",
+    knockedOutBar:"#Enemey4Out",
+    knockedOutCount: 0,
+    confusedCount: 0,
+    sleepCount: 0,
+    confused: false,
+    nullify: nullClass,
+    passedTurn: false, 
+    isClone: false,
+    spawnClone: false,
+    cloningAbility: false,
+    dead: false,
+    spriteAnimation: enemyFourAnimations,
+    playAnimation: false,
+    inttialSpot: {
+        x: 500,
+        y: 600,
+    }
+
+}
+
+// clones 
+ cloneOne = {
+    name: 'clone 1',    
+    health: playerOne.health, 
+    maxHealth: 100,
+    stamina: 100,
+    dodge: 0.5,
+    dodged: false,
+    maxStamina: 100,
+    focus: 100,
+    maxFocus: 100,
+    isPlayAble: true,
+    knockedOut: false,
+    isSleeping: false,
+    nullSleeping: false,
+    redirect: false,
+    block: false,
+    weakness: weaknessesClass,
+    attackClass: attackClass1,
+
+    nameId: "cloneOneName",
+    nameStatus: "#cloneOneName",
+    healthBarId: "cloneOneHealth",
+    healthBar: "#cloneOneHealth",
+    staminaBarId: "cloneOneStamina",
+    staminaBar: "#cloneOneStamina",
+    focusBarId: "cloneOneFocus",
+    focusBar: "#cloneOneFocus",
+    
+    knockedOutCount: 0,
+    confusedCount: 0,
+    sleepCount: 0,
+    confused: false,
+    nullify: nullClass2,
+    passedTurn: false, 
+    isClone: true,
+    spawnClone: false,
+    cloningAbility: false,
+    dead: false,
+    spriteAnimation: cloneOneAnimations,
+    playAnimation: false,
+    playHealingAnimation: false,
+    playHealingAnimationOnce: false,
+    inttialSpot: {
+        x: 50,
+        y: 400,
+    },
+
+}
+
+cloneTwo = {
+    name: 'Clone 2',    
+    health: 49, 
+    maxHealth: 100,
+    stamina: 100,
+    dodge: 0.5,
+    dodged: false,
+    maxStamina: 100,
+    focus: 100,
+    maxFocus: 100,
+    isPlayAble: true,
+    knockedOut: false,
+    isSleeping: false,
+    nullSleeping: false,
+    redirect: false,
+    weakness: weaknessesClass,
+    attackClass: attackClass1,
+    knockedOutCount: 0,
+    confusedCount: 0,
+    sleepCount: 0,
+    confused: false,
+    nullify: nullClass2,
+    passedTurn: false, 
+    isClone: true,
+    spawnClone: false,
+    cloningAbility: false,
+    dead: false,
+    nameId: "cloneTwoName",
+    nameStatus: "#cloneTwoName",
+    healthBarId: "cloneTwoHealth",
+    healthBar: "#cloneTwoHealth",
+    staminaBarId: "cloneTwoStamina",
+    staminaBar: "#cloneTwoStamina",
+    focusBarId: "cloneTwoFocus",
+    focusBar: "#cloneTwoFocus",
+    spriteAnimation: playerOneAnimations
+
+}
+
+ cloneThree = {
+    name: 'Clone 3',    
+    health: 49, 
+    dodge: 0.5,
+    dodged: false,
+    maxHealth: 100,
+    stamina: 100,
+    maxStamina: 100,
+    focus: 100,
+    maxFocus: 100,
+    isPlayAble: true,
+    knockedOut: false,
+    isSleeping: false,
+    nullSleeping: false,
+    redirect: false,
+    dead: false,
+    weakness: weaknessesClass,
+    attackClass: attackClass1,
+    nameId: "playerOneName",
+    nameStatus: "#playerOneName",
+    healthBarId: "playerOneHealth",
+    healthBar: "#playerOneHealth",
+    staminaBarId: "playerOneStamina",
+    staminaBar: "#playerOneStamina",
+    focusBarId: "playerOneFocus",
+    focusBar: "#playerOneFocus",
+    knockedOutCount: 0,
+    confusedCount: 0,
+    sleepCount: 0,
+    confused: false,
+    nullify: nullClass2,
+    passedTurn: false, 
+    isClone: true,
+    spawnClone: false,
+    cloningAbility: false,
+    spriteAnimation: playerOneAnimations
+
+}
+
+enetityArray = []
+ enetityArray2 = []
+ startBattle = true
+
+
+     endBattle = true
+
+
+     openAttackMenu = true
+     hitOne = false
+     hitAll = false
+     choosenAttack 
+     choosenAttackBoolean = false
+     appendEnemyButtons = false
+    
+     chooseEntityToAttack = false
+    nowHitPlayer = false
+    addclone = false
+    enemyToHit
+    playerToHit
+    
+    
+    choosePlayerToHeal = false
+    playerChooesen
+    choosenItem
+    timesAnimateShouldPlay = 0
+     runHealingOnce = false
+    
+    
+    animationArray = []
+     animateFirstPart = false
+    animateSecondPart = false
+    animateEndPart = false
+    
+     passOnce = false
+    madeChoiceToPass = false
+    
+   runOnce = false
+    toggleTurnPassedTurnBack = false
+     runIdleAnimationOnce = false
+    
+    
+    cloneArray = [cloneOne, cloneTwo, cloneThree]
+     toggleNextTurn = false
+    
+     selectAttack = false;
+    selectPassTurn = false;
+    selectHealing = false;
+    selectingItem = false;
+     enemyAttacking = false;
+    playSong = false
+    enemiesDead = []
+   playersDead = []
+    playerWins = false
+    enemyWins = false
+
+    findAttackAndPlayer = false
+    findHit = false
+    enemyEndTurn = false
+//     randomAttack 
+//    radnomPlayer 
+    playerArray = []
+     startEnemyAnimation = false
+    hitAllRedict = false
+    hitAllRedictAnimation = false
+     redirectAttack = false
+
+enemyChancesOfGettingHit = false
 
 }
